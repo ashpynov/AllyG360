@@ -1,8 +1,13 @@
+
+
 #include "Gopher.h"
 #include "ConfigFile.h"
 
 #include <algorithm>
 #include "WinUser.h"
+
+bool Gopher::_disabled = true;
+
 
 DWORD PadToCode(const std::string& name)
 {

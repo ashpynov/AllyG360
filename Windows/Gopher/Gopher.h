@@ -41,7 +41,7 @@ private:
   float _yRest = 0.0f;
 
   bool _connected = true;
-  bool _disabled = true;           // Disables the Gopher controller mapping.
+  static bool _disabled;           // Disables the Gopher controller mapping.
   bool _vibrationDisabled = false;  // Prevents Gopher from producing controller vibrations. 
   bool _hidden = false;             // Gopher main window visibility.
   bool _lTriggerPrevious = false;   // Previous state of the left trigger.
