@@ -7,15 +7,15 @@ CXBOXController::CXBOXController(int playerNumber)
 
 XINPUT_STATE CXBOXController::GetState()
 {
-  ZeroMemory(&this->_controllerState, sizeof(XINPUT_STATE));
-  XInputGetState(_controllerNum, &this->_controllerState);
+  ZeroMemory(&_controllerState, sizeof(XINPUT_STATE));
+  XInputGetState(_controllerNum, &_controllerState);
   return _controllerState;
 }
 
 bool CXBOXController::IsConnected()
 {
-  ZeroMemory(&this->_controllerState, sizeof(XINPUT_STATE));
-  DWORD Result = XInputGetState(_controllerNum, &this->_controllerState);
+  ZeroMemory(&_controllerState, sizeof(XINPUT_STATE));
+  DWORD Result = XInputGetState(_controllerNum, &_controllerState);
 
   return (Result == ERROR_SUCCESS);
 }

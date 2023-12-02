@@ -33,4 +33,10 @@ public:
 
     return returnVal;
   };
+
+  template <>
+  static std::string string_to_T(std::string const& val)
+  {
+      return std::string(val);
+  };
 };
