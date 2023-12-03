@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <vector>
 #include <fstream>
 #include "Convert.h"
 
@@ -21,7 +22,7 @@ private:
   void extractKey(std::string &key, size_t const &sepPos, const std::string &line) const;
   void extractValue(std::string &value, size_t const &sepPos, const std::string &line) const;
 
-  void extractContents(const std::string &line);
+  void extractContents(const std::string &line, size_t const lineNo);
 
   void parseLine(const std::string &line, size_t const lineNo);
 
@@ -31,6 +32,14 @@ public:
   ConfigFile(const std::string &fName);
 
   bool keyExists(const std::string &key) const;
+
+  std::vector<std::string> getKeys( const char * prefix = NULL ) {
+      std::vector<std::string> keys;
+      for (auto const& item : contents)
+          if ( !prefix || item.first.rfind(prefix, 0) == 0 )
+            keys.push_back(item.first);
+      return keys;
+  }
 
   template <typename ValueType>
   ValueType getValueOfKey(const std::string &key, ValueType const &defaultValue = ValueType()) const

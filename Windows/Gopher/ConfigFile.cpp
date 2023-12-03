@@ -39,10 +39,9 @@ bool ConfigFile::validLine(const std::string &line) const
 void ConfigFile::extractKey(std::string &key, size_t const &sepPos, const std::string &line) const
 {
   key = line.substr(0, sepPos);
-  if (key.find('\t') != line.npos || key.find(' ') != line.npos)
-  {
-    key.erase(key.find_first_of("\t "));
-  }
+  key.erase(0, key.find_first_not_of("\t "));
+  key.erase(key.find_last_not_of("\t ")+1);
+
 }
 void ConfigFile::extractValue(std::string &value, size_t const &sepPos, const std::string &line) const
 {
@@ -51,7 +50,7 @@ void ConfigFile::extractValue(std::string &value, size_t const &sepPos, const st
   value.erase(value.find_last_not_of("\t ") + 1);
 }
 
-void ConfigFile::extractContents(const std::string &line)
+void ConfigFile::extractContents(const std::string &line, size_t const lineNo)
 {
   std::string temp = line;
   temp.erase(0, temp.find_first_not_of("\t "));
@@ -67,7 +66,7 @@ void ConfigFile::extractContents(const std::string &line)
   }
   else
   {
-    exitWithError("CFG: Can only have unique key names!\n");
+    exitWithError("CFG: Can only have unique key names! (line: " + Convert::T_to_string(lineNo) + ")\n");
   }
 }
 
@@ -83,7 +82,7 @@ void ConfigFile::parseLine(const std::string &line, size_t const lineNo)
     exitWithError("CFG: Bad format for line: " + Convert::T_to_string(lineNo) + "\n");
   }
 
-  extractContents(line);
+  extractContents(line, lineNo);
 }
 
 void ConfigFile::ExtractKeys()
@@ -116,9 +115,16 @@ void ConfigFile::ExtractKeys()
     outfile << "#CONFIG_OSK = MENU + DOWN               # Toggle on-screen keyboard" << std::endl;
     outfile << "\n" << std::endl;
     outfile << "#	KEYBOARD SHORTCUTS ON CONTROLLER BUTTONS" << std::endl;
-    outfile << "#	SET - FOR NO FUNCTION" << std::endl;
     outfile << "#	AVAILABLE VALUES AT> https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731" << std::endl;
     outfile << "\n" << std::endl;
+
+    outfile << "#	PERMANENT SHORTCUTS: " << std::endl;
+    outfile << "#	PLEASE BE AWARE THIS SHORTCUNT MAY INTERFE WITH GAMING: " << std::endl;
+    outfile << "MAP GUIDE + DPAD_LEFT = ALT + SHIFT + TAB" << std::endl;
+    outfile << "MAP GUIDE + DPAD_RIGHT = ALT + TAB" << std::endl;
+    outfile << "MAP GUIDE + MENU + VIEW = ALT + F4" << std::endl;
+    
+    outfile << "#	ONLY IN ACTIVE MODE: " << std::endl;
     outfile << "GAMEPAD_DPAD_UP = UP" << std::endl;
     outfile << "GAMEPAD_DPAD_DOWN = DOWN" << std::endl;
     outfile << "GAMEPAD_DPAD_LEFT = LEFT" << std::endl;
@@ -200,9 +206,8 @@ bool ConfigFile::keyExists(const std::string &key) const
 
 void ConfigFile::exitWithError(const std::string &error)
 {
-  std::cout << error;
-  std::cin.ignore();
-  std::cin.get();
+
+  MessageBoxA(NULL,error.c_str(), "Gopher360: Error in Config", MB_ICONERROR | MB_OK);
 
   exit(EXIT_FAILURE);
 }

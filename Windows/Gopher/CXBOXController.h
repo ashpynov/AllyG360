@@ -7,7 +7,8 @@
 #define GINPUT_GAMEPAD_LTRIGGER_FULL        0x20000
 #define GINPUT_GAMEPAD_RTRIGGER_SHORT       0x40000
 #define GINPUT_GAMEPAD_RTRIGGER_FULL        0x80000
-#define GINPUT_GAMEPAD_XBOX                 0x100000
+#define XINPUT_GAMEPAD_GUIDE                0x400
+#define XINPUT_GAMEPAD_RESERVED             0x800
 
 
 class CXBOXController

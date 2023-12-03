@@ -83,6 +83,9 @@ private:
   DWORD GAMEPAD_TRIGGER_LEFT = NULL;
   DWORD GAMEPAD_TRIGGER_RIGHT = NULL;
 
+  std::map<DWORD, std::vector<WORD>> GAMEPAD_MAP;
+  std::map<DWORD, std::vector<WORD>> KEY_MAP;
+
   // Button press state logic variables
   std::map<DWORD, bool> _xboxClickStateLastIteration;
   std::map<DWORD, bool> _xboxClickIsDown;
@@ -127,6 +130,7 @@ public:
   bool xboxClickStateExists(DWORD xinput);
 
   void mapKeyboard(DWORD STATE, WORD key);
+  void mapKeyboard(DWORD STATE, std::vector<WORD> keys);
 
   void mapMouseClick(DWORD STATE, DWORD keyDown, DWORD keyUp);
 
@@ -137,4 +141,6 @@ public:
 private:
 
   bool erasePressedKey(WORD key);
+  void handleNotPressed();
+
 };
