@@ -1,4 +1,31 @@
 #include "CXBOXController.h"
+#include "TCHAR.h"
+
+CXBOXController::Extra::Extra()
+{
+	try {
+		TCHAR xinput_dll_path[MAX_PATH];
+		GetSystemDirectory(xinput_dll_path, sizeof(xinput_dll_path) - 1);
+		_tcscat(xinput_dll_path, _T("\\xinput1_4.dll"));
+		xinput_dll = LoadLibrary(xinput_dll_path);
+		XInputGetStateFunc = xinput_dll ? (GET_GAMEPAD_XINPUT)GetProcAddress(xinput_dll, (LPCSTR)100) : NULL; // load ordinal 100
+	}
+	catch (...)
+	{
+	}
+}
+
+CXBOXController::Extra::~Extra()
+{
+	if (xinput_dll) FreeLibrary(xinput_dll);
+}
+
+DWORD CXBOXController::Extra::XInputGetState(int num, XINPUT_STATE* state)
+{
+	static Extra _extraProc;
+	return _extraProc.XInputGetStateFunc ? _extraProc.XInputGetStateFunc(num, state) : XInputGetState(num, state);
+}
+
 
 CXBOXController::CXBOXController(int playerNumber)
 {
@@ -8,7 +35,8 @@ CXBOXController::CXBOXController(int playerNumber)
 XINPUT_STATE CXBOXController::GetState()
 {
   ZeroMemory(&_controllerState, sizeof(XINPUT_STATE));
-  XInputGetState(_controllerNum, &_controllerState);
+  Extra::XInputGetState(_controllerNum, &_controllerState);
+
   return _controllerState;
 }
 

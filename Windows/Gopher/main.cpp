@@ -29,6 +29,9 @@
 
 #include "Gopher.h"
 
+
+
+
 bool ChangeVolume(double nVolume, bool bScalar); // Not used yet
 BOOL isRunningAsAdministrator(); // Check if administrator, makes on-screen keyboard clickable
 
@@ -121,8 +124,6 @@ bool ChangeVolume(double nVolume, bool bScalar) //o b
 
 
 #include "resource.h"
-
-#define _countof(x) (sizeof(x) / sizeof((x)[0]))
 
 const UINT WM_TRAY = WM_USER + 1;
 HINSTANCE g_hInstance = NULL;
@@ -308,11 +309,14 @@ DWORD WINAPI gophersThread( LPVOID lpParam )
 	return 0;
 }
 
+
+
 int WINAPI WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR     lpCmdLine,
 	int       nCmdShow)
 {
+
 	TCHAR szTxt[0x100];
 	wsprintf(szTxt, _T("hInstance=%08x\n"), hInstance);
 	OutputDebugString(szTxt);

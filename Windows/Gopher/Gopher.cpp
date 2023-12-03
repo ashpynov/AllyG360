@@ -394,12 +394,6 @@ void Gopher::loop()
 
 	_currentState = _controller->GetState();
 
-	if (_currentState.Gamepad.wButtons) {
-		char buff[1000];
-		sprintf(buff, "Pad: %d, button: %d\n", _controller->getNum(), _currentState.Gamepad.wButtons);
-		OutputDebugStringA(buff);
-	}
-
 	// Map to Keyboard sequences
 	for (auto& padToKey : KEY_MAP) {
 		mapKeyboard(padToKey.first, padToKey.second);
