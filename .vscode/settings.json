@@ -1,0 +1,7 @@
+{
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.cpp": "${basename}.h, ${basename}.cpp"
+    },
+    "explorer.excludeGitIgnore": true
+}
