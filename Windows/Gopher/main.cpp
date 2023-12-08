@@ -268,7 +268,7 @@ LRESULT CALLBACK HiddenWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 				ZeroMemory(&stData, sizeof(stData));
 				CPopupWndData::s_pThis = &stData;
 
-				DialogBox(g_hInstance, MAKEINTRESOURCE(IDD_GOPHER), NULL, DialogProc);
+				DialogBox(g_hInstance, MAKEINTRESOURCE(IDD_GOPHER), NULL, (DLGPROC)DialogProc);
 
 				if (stData.m_pControls)
 					delete[] stData.m_pControls;
@@ -349,7 +349,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 					TranslateMessage(&stMsg);
 					DispatchMessage(&stMsg);
 				}
-				
+
 				if (IsWindow(hHiddenWnd))
 					DestroyWindow(hHiddenWnd);
 
