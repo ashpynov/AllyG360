@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C/C++: build and debug current project",
+            "name": "C/C++: Run AllyG360",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "Windows//Debug//Gopher360.exe",
+            "program": "AllyG360.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}//Debug",
             "environment": [],
             "preLaunchTask": "Build debug project"
         }

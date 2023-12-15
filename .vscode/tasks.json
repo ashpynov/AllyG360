@@ -19,7 +19,7 @@
             "label": "Build debug project",
             "command": "msbuild.exe",
             "args": [
-                "Windows\\Gopher\\Gopher.vcxproj",
+                "AllyG360.vcxproj",
                 "-property:Configuration=Debug"
 
             ],
@@ -36,7 +36,7 @@
             "label": "Build release project",
             "command": "msbuild.exe",
             "args": [
-                "Windows\\Gopher\\Gopher.vcxproj",
+                "AllyG360.vcxproj",
                 "-property:Configuration=Release"
             ],
             "problemMatcher": [

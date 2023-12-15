@@ -11,10 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <TargetName>Gopher360</TargetName>
+    <TargetName>AllyG360</TargetName>
     <ProjectGuid>{896B8CDE-8FC8-42F3-AC14-FA6D202DBBD7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Gopher</RootNamespace>
+    <RootNamespace>AllyG</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -79,23 +79,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigFile.cpp" />
-    <ClCompile Include="CXBOXController.cpp" />
-    <ClCompile Include="Gopher.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\ConfigFile.cpp" />
+    <ClCompile Include="src\CXBOXController.cpp" />
+    <ClCompile Include="src\AllyG.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConfigFile.h" />
-    <ClInclude Include="Convert.h" />
-    <ClInclude Include="CXBOXController.h" />
-    <ClInclude Include="Gopher.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\ConfigFile.h" />
+    <ClInclude Include="src\Convert.h" />
+    <ClInclude Include="src\CXBOXController.h" />
+    <ClInclude Include="src\AllyG.h" />
+    <ClInclude Include="src\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc" />
+    <ResourceCompile Include="src\Resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="gopher.ico" />
+    <Image Include="src\allyg.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------------
-    Gopher free software: you can redistribute it and/or modify
+    AllyG free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
@@ -27,7 +27,7 @@
 #pragma comment(lib, "XInput9_1_0.lib")
 #pragma comment(lib, "winmm") // for volume
 
-#include "Gopher.h"
+#include "AllyG.h"
 
 
 
@@ -268,7 +268,7 @@ LRESULT CALLBACK HiddenWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 				ZeroMemory(&stData, sizeof(stData));
 				CPopupWndData::s_pThis = &stData;
 
-				DialogBox(g_hInstance, MAKEINTRESOURCE(IDD_GOPHER), NULL, (DLGPROC)DialogProc);
+				DialogBox(g_hInstance, MAKEINTRESOURCE(IDD_ALLYG), NULL, (DLGPROC)DialogProc);
 
 				if (stData.m_pControls)
 					delete[] stData.m_pControls;
@@ -286,24 +286,24 @@ LRESULT CALLBACK HiddenWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
 
-DWORD WINAPI gophersThread( LPVOID lpParam )
+DWORD WINAPI allygsThread( LPVOID lpParam )
 {
 	std::vector<CXBOXController*> controllers;
-	std::vector<Gopher*> gophers;
+	std::vector<AllyG*> allygs;
 	for (int i = 0; i < 5; i++)
 	{
 		CXBOXController *controller = new CXBOXController(i + 1);
 		controllers.push_back(controller);
-		Gopher* gopher = new Gopher(controller);
-		gopher->loadConfigFile();
-		gophers.push_back(gopher);
+		AllyG* allyg = new AllyG(controller);
+		allyg->loadConfigFile();
+		allygs.push_back(allyg);
 	}
 	while (!*(BOOL*)lpParam) {
-		for(auto gopher : gophers)
-			gopher->loop();
+		for(auto allyg : allygs)
+			allyg->loop();
 	}
 
-	for (auto gopher : gophers) delete gopher;
+	for (auto allyg : allygs) delete allyg;
 	for (auto controller : controllers) delete controller;
 
 	return 0;
@@ -323,7 +323,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	WNDCLASS stWC;
 	ZeroMemory(&stWC, sizeof(stWC));
-	stWC.lpszClassName = _T("Gopher360");
+	stWC.lpszClassName = _T("AllyG360");
 
 	HWND hHiddenWnd = FindWindow(stWC.lpszClassName, NULL);
 	if (hHiddenWnd)
@@ -341,7 +341,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			if (hHiddenWnd = CreateWindow((LPCTSTR)aClass, _T(""), 0, 0, 0, 0, 0, NULL, NULL, hInstance, NULL))
 			{
 				BOOL terminateFlag = 0;
-				HANDLE gophersTread = CreateThread(NULL, 0, gophersThread, &terminateFlag, 0, 0);
+				HANDLE allygsTread = CreateThread(NULL, 0, allygsThread, &terminateFlag, 0, 0);
 
 				MSG stMsg;
 				while (GetMessage(&stMsg, NULL, 0, 0) > 0)
@@ -354,8 +354,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 					DestroyWindow(hHiddenWnd);
 
 				terminateFlag = TRUE;
-				WaitForMultipleObjects(1, &gophersTread, TRUE, INFINITE);
-				CloseHandle(gophersTread);
+				WaitForMultipleObjects(1, &allygsTread, TRUE, INFINITE);
+				CloseHandle(allygsTread);
 			}
 			UnregisterClass((LPCTSTR)aClass, g_hInstance);
 		}

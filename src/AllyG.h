@@ -16,14 +16,14 @@
 
 #pragma once
 
-class Gopher
+class AllyG
 {
 private:
   int DEAD_ZONE = 600;                 // Thumbstick dead zone to use for mouse movement. Absolute maximum shall be 65534.
   int SCROLL_DEAD_ZONE = 500;          // Thumbstick dead zone to use for scroll wheel movement. Absolute maximum shall be 65534.
   int TRIGGER_DEAD_ZONE = 30;            // Dead zone for the left and right triggers to detect a trigger press. 0 means that any press to trigger will be read as a button press.
   float SCROLL_SPEED = 0.1f;             // Speed at which you scroll.
-  const int FPS = 150;                  // Update rate of the main Gopher loop. Interpreted as cycles-per-second.
+  const int FPS = 150;                  // Update rate of the main AllyG loop. Interpreted as cycles-per-second.
   const int SLEEP_AMOUNT = 1000 / FPS;  // Number of milliseconds to sleep per iteration.
   int SWAP_THUMBSTICKS = 0;             // Swaps the function of the thumbsticks when not equal to 0.
 
@@ -41,9 +41,9 @@ private:
   float _yRest = 0.0f;
 
   bool _connected = true;
-  static bool _disabled;           // Disables the Gopher controller mapping.
-  bool _vibrationDisabled = false;  // Prevents Gopher from producing controller vibrations. 
-  bool _hidden = false;             // Gopher main window visibility.
+  static bool _disabled;           // Disables the AllyG controller mapping.
+  bool _vibrationDisabled = false;  // Prevents AllyG from producing controller vibrations.
+  bool _hidden = false;             // AllyG main window visibility.
   bool _lTriggerPrevious = false;   // Previous state of the left trigger.
   bool _rTriggerPrevious = false;   // Previous state of the right trigger.
   bool _throttle = false;
@@ -56,8 +56,8 @@ private:
   DWORD CONFIG_MOUSE_LEFT = NULL;
   DWORD CONFIG_MOUSE_RIGHT = NULL;
   DWORD CONFIG_MOUSE_MIDDLE = NULL;
-  
-  // Gopher Settings
+
+  // AllyG Settings
   DWORD CONFIG_HIDE = NULL;
   DWORD CONFIG_DISABLE = NULL;
   DWORD CONFIG_DISABLE_VIBRATION = NULL;
@@ -99,7 +99,7 @@ private:
 
 public:
 
-  Gopher(CXBOXController* controller);
+  AllyG(CXBOXController* controller);
 
   void loadConfigFile();
 
