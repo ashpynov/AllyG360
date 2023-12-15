@@ -17,16 +17,29 @@ All above sentenced are from description of father of this project Gopher360 by 
 
 TODOs:
 ======
+
 [x] - Redesign config to be able specify button names not sodes without bitwise mathematic
+
 [x] - Rename Gopher360 to AllyG360 (G360 as respect to original project)
+
 [x] - Support Gamepad combo to be mapped from.
+
 [x] - Support Hotkey combo to be mapped to.
+
 [ ] - Option to autostart as Admin to work properly on Asus Armory Crate
+
 [ ] - Tune stick to mouse sensivity curve
+
 [ ] - Haldle only longest Pad sequences
+
 [ ] - Change icon
+
 [ ] - Use icon tooltip to show status (enable/disable)
+
 [ ] - Made binaries on GitHub
+
 [ ] - Support not stick gamepad to emulate mouse
+
 [ ] - User interface to setup
+
 
