@@ -636,14 +636,14 @@ float AllyG::getDelta(short t)
 //
 // Returns:
 //   Multiplier used to properly scale the given thumbstick value.
-float AllyG::getMult(float lengthsq, float deadzone, float accel = 0.0f)
+float AllyG::getMult(float lengthsq, int deadzone, float accel = 0.0f)
 {
 	// Normalize the thumbstick value.
 	float mult = (sqrt(lengthsq) - deadzone) / (MAXSHORT - deadzone);
 
 	mult = min(1.0f, mult);
 
-	float linear_factor = 0.1;
+	float linear_factor = 0.1f;
 	float linear_scale = 2.5;
 
 	float exp_factor = 5;
@@ -689,7 +689,7 @@ void AllyG::handleMouseMovement()
 	float dy = 0;
 
 	// Handle dead zone
-	float lengthsq = tx * tx + ty * ty;
+	float lengthsq = (float)(tx * tx + ty * ty);
 	if (lengthsq > DEAD_ZONE * DEAD_ZONE)
 	{
 		float mult = speed * getMult(lengthsq, DEAD_ZONE, _throttle ? acceleration_factor : 1 );
@@ -706,8 +706,8 @@ void AllyG::handleMouseMovement()
 
 	INPUT mouseInput;
 	mouseInput.type = INPUT_MOUSE;
-	mouseInput.mi.dx = dx;
-	mouseInput.mi.dy = -dy;
+	mouseInput.mi.dx = (LONG)dx;
+	mouseInput.mi.dy = (LONG)(-1 * dy);
 	mouseInput.mi.mouseData = 0;
 	mouseInput.mi.time = 0;
 	mouseInput.mi.dwFlags = MOUSEEVENTF_MOVE;
@@ -740,8 +740,8 @@ void AllyG::handleScrolling()
 
 	if (magnitude > SCROLL_DEAD_ZONE)
 	{
-		mouseEvent(MOUSEEVENTF_HWHEEL, tx * getMult(tx * tx, SCROLL_DEAD_ZONE, _throttle ? acceleration_factor : 1) * SCROLL_SPEED);
-		mouseEvent(MOUSEEVENTF_WHEEL, ty * getMult(ty * ty, SCROLL_DEAD_ZONE, _throttle ? acceleration_factor : 1) * SCROLL_SPEED);
+		mouseEvent(MOUSEEVENTF_HWHEEL, (DWORD)(tx * getMult(tx * tx, SCROLL_DEAD_ZONE, _throttle ? acceleration_factor : 1) * SCROLL_SPEED));
+		mouseEvent(MOUSEEVENTF_WHEEL, (DWORD)(ty * getMult(ty * ty, SCROLL_DEAD_ZONE, _throttle ? acceleration_factor : 1) * SCROLL_SPEED));
 	}
 }
 

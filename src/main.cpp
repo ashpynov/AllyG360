@@ -67,62 +67,6 @@ BOOL isRunningAsAdministrator()
   return fRet;
 }
 
-// This works, but it's not enabled in the software since the best button for it is still undecided
-bool ChangeVolume(double nVolume, bool bScalar) //o b
-{
-  HRESULT hr = NULL;
-  bool decibels = false;
-  bool scalar = false;
-  double newVolume = nVolume;
-
-  CoInitialize(NULL);
-  IMMDeviceEnumerator *deviceEnumerator = NULL;
-  hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_INPROC_SERVER,
-                        __uuidof(IMMDeviceEnumerator), (LPVOID *)&deviceEnumerator);
-  IMMDevice *defaultDevice = NULL;
-
-  hr = deviceEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &defaultDevice);
-  deviceEnumerator->Release();
-  deviceEnumerator = NULL;
-
-  IAudioEndpointVolume *endpointVolume = NULL;
-  hr = defaultDevice->Activate(__uuidof(IAudioEndpointVolume),
-                               CLSCTX_INPROC_SERVER, NULL, (LPVOID *)&endpointVolume);
-  defaultDevice->Release();
-  defaultDevice = NULL;
-
-  // -------------------------
-  float currentVolume = 0;
-  endpointVolume->GetMasterVolumeLevel(&currentVolume);
-  //printf("Current volume in dB is: %f\n", currentVolume);
-
-  hr = endpointVolume->GetMasterVolumeLevelScalar(&currentVolume);
-  //CString strCur=L"";
-  //strCur.Format(L"%f",currentVolume);
-  //AfxMessageBox(strCur);
-
-  // printf("Current volume as a scalar is: %f\n", currentVolume);
-  if (bScalar == false)
-  {
-    hr = endpointVolume->SetMasterVolumeLevel((float)newVolume, NULL);
-  }
-  else if (bScalar == true)
-  {
-    hr = endpointVolume->SetMasterVolumeLevelScalar((float)newVolume, NULL);
-  }
-  endpointVolume->Release();
-
-  CoUninitialize();
-
-  return FALSE;
-}
-
-
-
-// QuickCodePage.cpp : Defines the entry point for the application.
-//
-
-
 #include "resource.h"
 
 const UINT WM_TRAY = WM_USER + 1;
@@ -338,7 +282,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		if (aClass)
 		{
 			g_hInstance = hInstance;
-			if (hHiddenWnd = CreateWindow((LPCTSTR)aClass, _T(""), 0, 0, 0, 0, 0, NULL, NULL, hInstance, NULL))
+			hHiddenWnd = CreateWindow((LPCTSTR)aClass, _T(""), 0, 0, 0, 0, 0, NULL, NULL, hInstance, NULL);
+			if ( hHiddenWnd )
 			{
 				BOOL terminateFlag = 0;
 				HANDLE allygsTread = CreateThread(NULL, 0, allygsThread, &terminateFlag, 0, 0);

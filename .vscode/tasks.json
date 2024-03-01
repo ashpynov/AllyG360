@@ -20,7 +20,8 @@
             "command": "msbuild.exe",
             "args": [
                 "AllyG360.vcxproj",
-                "-property:Configuration=Debug"
+                "-property:Configuration=Debug",
+                "-target:Clean;Build"
 
             ],
             "problemMatcher": [
@@ -37,7 +38,8 @@
             "command": "msbuild.exe",
             "args": [
                 "AllyG360.vcxproj",
-                "-property:Configuration=Release"
+                "-property:Configuration=Release",
+                "-target:Clean;Build"
             ],
             "problemMatcher": [
                 "$msCompile"
